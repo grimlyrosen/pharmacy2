@@ -1,0 +1,35 @@
+import sys
+
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
+
+class MyWidget(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('design.ui', self)
+        self.pushButton.clicked.connect(self.run)
+        self.result_string = ''
+
+    def run(self):
+        for button in [self.radioButton11, self.radioButton12, self.radioButton13]:
+            if button.isChecked():
+                self.result_string = self.result_string + button.text()
+        self.result_string = self.result_string + ', '
+        for button in [self.radioButton21, self.radioButton22, self.radioButton23]:
+            if button.isChecked():
+                self.result_string = self.result_string + button.text()
+        self.result_string = self.result_string + ' и '
+        for button in [self.radioButton31, self.radioButton32, self.radioButton33]:
+            if button.isChecked():
+                self.result_string = self.result_string + button.text()
+
+        self.label_result.setText(self.result_string)
+        self.result_string = ''
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyWidget()
+    ex.show()
+    sys.exit(app.exec_())
